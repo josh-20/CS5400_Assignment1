@@ -85,18 +85,21 @@ MySample.graphics = (function(pixelsX, pixelsY, showPixels) {
         let deltaY = y2 - y1;
         let c = (2*deltaY) + (deltaX*(2*b - 1));
         let pk = (2 * deltaY * x_k) - (2*deltaX * y_k) + c;
+        if (deltaY == 0){
+            pk = (2 *deltaX) - deltaX
+        }
         while(x_k != x2){
             if(pk >= 0) {
                 drawPixel(x_k,y_k + 1,color);
                 pk = pk + (2 * deltaY) - (2 * deltaX);
+                if (y2 > y1){
+                    y_k++;
+                }else{
+                    y_k--;
+                }
             }else{
                 drawPixel(x_k,y_k,color);
                 pk = pk + (2 * deltaY);
-            }
-            if (y2 > y1){
-                y_k++;
-            }else{
-                y_k--;
             }
             x_k++;
         }
