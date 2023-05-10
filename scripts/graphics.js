@@ -60,8 +60,46 @@ MySample.graphics = (function(pixelsX, pixelsY, showPixels) {
     //
     //------------------------------------------------------------------
     function drawLine(x1, y1, x2, y2, color) {
-        console.log("hello");
         drawPixel(x1,y1,color);
+        if(Math.abs(x1 - x2) < Math.abs(y1-y2)){
+           let swap1 = y1;
+           let swap2 = y2;
+           y1 = x1;
+           y2 = x2;
+           x1 = swap1;
+           x2 = swap2;
+        }
+        if (x1 > x2) {
+           let swap1 = x1;
+           let swap2 = y1;
+           x1 = x2;
+           y1 = y2;
+           x2 = swap1;
+           y2 = swap2;
+        }
+        let x_k = x1;
+        let y_k = y1;
+        let m = (y2 - y1)/(x2 - x1);
+        let b = y1 - (m * x1);
+        let deltaX = x2 - x1;
+        let deltaY = y2 - y1;
+        let c = (2*deltaY) + (deltaX*(2*b - 1));
+        let pk = (2 * deltaY * x_k) - (2*deltaX * y_k) + c;
+        while(x_k != x2){
+            if(pk >= 0) {
+                drawPixel(x_k,y_k + 1,color);
+                pk = pk + (2 * deltaY) - (2 * deltaX);
+            }else{
+                drawPixel(x_k,y_k,color);
+                pk = pk + (2 * deltaY);
+            }
+            if (y2 > y1){
+                y_k++;
+            }else{
+                y_k--;
+            }
+            x_k++;
+        }
     }
 
     let api = {
@@ -71,6 +109,5 @@ MySample.graphics = (function(pixelsX, pixelsY, showPixels) {
         get sizeX() { return pixelsX; },
         get sizeY() { return pixelsY; }
     };
-
     return api;
 }(150, 150, true));
