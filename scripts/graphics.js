@@ -60,7 +60,7 @@ MySample.graphics = (function(pixelsX, pixelsY, showPixels) {
     //
     //------------------------------------------------------------------
     function drawLine(x1, y1, x2, y2, color) {
-        drawPixel(x1,y1,color);
+        
         if(Math.abs(x1 - x2) < Math.abs(y1-y2)){
            let swap1 = y1;
            let swap2 = y2;
