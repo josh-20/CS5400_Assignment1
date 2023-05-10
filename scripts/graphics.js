@@ -60,6 +60,19 @@ MySample.graphics = (function(pixelsX, pixelsY, showPixels) {
     //
     //------------------------------------------------------------------
     function drawLine(x1, y1, x2, y2, color) {
+        if(x1 == x2){
+            if(y1 < y2){
+                while(y1 != y2){
+                    drawPixel(x1,y1,color);
+                    y1++;
+                }
+            }else{
+                while(y1 != y2){
+                    drawPixel(x1,y1,color);
+                    y1--;
+                }
+            }
+        }
         
         if(Math.abs(x1 - x2) < Math.abs(y1-y2)){
            let swap1 = y1;
@@ -83,19 +96,14 @@ MySample.graphics = (function(pixelsX, pixelsY, showPixels) {
         let b = y1 - (m * x1);
         let deltaX = x2 - x1;
         let deltaY = y2 - y1;
-        let c = (2*deltaY) + (deltaX*(2*b - 1));
-        let pk = (2 * deltaY * x_k) - (2*deltaX * y_k) + c;
+        let c = (2*deltaY) + (deltaX*(2 * b - 1));
+        let pk = (2 * deltaY * x_k) - (2 * deltaX * y_k) + c;
         while(x_k != x2){
+            drawPixel(x_k,y_k,color)
             if(pk >= 0) {
-                drawPixel(x_k,y_k + 1,color);
                 pk = pk + (2 * deltaY) - (2 * deltaX);
-                if (y2 > y1){
-                    y_k++;
-                }else{
-                    y_k--;
-                }
+                y_k++;
             }else{
-                drawPixel(x_k,y_k,color);
                 pk = pk + (2 * deltaY);
             }
             x_k++;

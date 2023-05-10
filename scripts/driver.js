@@ -18,8 +18,8 @@ MySample.main = (function(graphics) {
     //------------------------------------------------------------------
     function render() {
         graphics.clear();
-        graphics.drawLine(50,10,50,25,"green");
-        graphics.drawLine(75,57,10,30, "orange");
+        graphics.drawLine(34,50,10,50,"yellow");
+        graphics.drawLine(25,30,50,75,"orange");
     }
 
     //------------------------------------------------------------------
