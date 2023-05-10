@@ -18,7 +18,7 @@ MySample.main = (function(graphics) {
     //------------------------------------------------------------------
     function render() {
         graphics.clear();
-        graphics.drawLine(50,24,24,24,"green");
+        graphics.drawLine(13,50,45,50,"green");
     }
 
     //------------------------------------------------------------------
