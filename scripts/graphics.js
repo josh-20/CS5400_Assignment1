@@ -60,6 +60,8 @@ MySample.graphics = (function(pixelsX, pixelsY, showPixels) {
     //
     //------------------------------------------------------------------
     function drawLine(x1, y1, x2, y2, color) {
+
+        // horizontal line check
         if(x1 == x2){
             if(y1 < y2){
                 while(y1 != y2){
