@@ -74,7 +74,7 @@ MySample.graphics = (function(pixelsX, pixelsY, showPixels) {
         let c = 2 * deltaY + (deltaX * (2 * b - 1));
         let pk = (2 * deltaY * x1) - (2 * deltaX * y1) + c;
         // Octant 1
-        if(x1 < x2){
+        if(x1 < x2 && y2 > y1){
             for(let x = x1; x <= x2; x++){
                 drawPixel(x,y1,color);
                 if(pk >= 0) {
@@ -85,13 +85,37 @@ MySample.graphics = (function(pixelsX, pixelsY, showPixels) {
                 }
             }
         }
+        //Octant 2
+        if(x1 < x2 && y2 < y1){
+            for(let x = x1; x <= x2; x++){
+                drawPixel(x,y1,color);
+                if(pk >= 0) {
+                    pk = pk + ((2 * deltaY) - (2 * deltaX));
+                    y1--;
+                }else{
+                    pk = pk + (2 * deltaY);
+                }
+            }
+        }
         // Octant 6
-        if (x2 < x1){
+        if (x2 < x1 && y2 < y1){
             for(let x = x1; x > x2; x--){
                 drawPixel(x,y1,color);
                 if(pk >= 0) {
                     pk = pk + ((2 * deltaY) - (2 * deltaX));
                     y1--;
+                }else{
+                    pk = pk + (2 * deltaY);
+                }
+            }
+        }
+        //Octant 5
+        if (x2 < x1 && y2 > y1){
+            for(let x = x1; x > x2; x--){
+                drawPixel(x,y1,color);
+                if(pk >= 0) {
+                    pk = pk + ((2 * deltaY) - (2 * deltaX));
+                    y1++;
                 }else{
                     pk = pk + (2 * deltaY);
                 }
