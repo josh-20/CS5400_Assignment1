@@ -24,7 +24,6 @@ MySample.graphics = (function(pixelsX, pixelsY, showPixels) {
         context.clearRect(0, 0, canvas.width, canvas.height);
         context.restore();
 
-        //
         // Draw a very light background to show the "pixels" for the framebuffer.
         if (showPixels) {
             context.save();
@@ -62,14 +61,20 @@ MySample.graphics = (function(pixelsX, pixelsY, showPixels) {
 
     //Quadrant 1
     function drawLine(x1, y1, x2, y2, color) {
-        let deltaX = x2 - x1;
-        let deltaY = y2 - y1;
+        let deltaX = Math.abs(x2 - x1);
+        let deltaY = Math.abs(y2 - y1);
+        //if delta x < deltaY we swap x's and y's along with deltas
+        // if (deltaX < deltaY){
+        //     [x1,y1] = [y1,x1];
+        //     [x2, y2] = [y2,x2];
+        //     [deltaX, deltaY] = [deltaY, deltaX];
+        // }
         let m = deltaY/deltaX;
         let b = y1 - m * x1;
         let c = 2 * deltaY + (deltaX * (2 * b - 1));
         let pk = (2 * deltaY * x1) - (2 * deltaX * y1) + c;
         // Octant 1
-        if (x1 < x2){
+        if(x1 < x2){
             for(let x = x1; x <= x2; x++){
                 drawPixel(x,y1,color);
                 if(pk >= 0) {
@@ -80,13 +85,13 @@ MySample.graphics = (function(pixelsX, pixelsY, showPixels) {
                 }
             }
         }
-        // Octant 5
+        // Octant 6
         if (x2 < x1){
-            for(let x = x1; x >= x2; x--){
+            for(let x = x1; x > x2; x--){
                 drawPixel(x,y1,color);
                 if(pk >= 0) {
                     pk = pk + ((2 * deltaY) - (2 * deltaX));
-                    y1++;
+                    y1--;
                 }else{
                     pk = pk + (2 * deltaY);
                 }
