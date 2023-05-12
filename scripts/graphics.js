@@ -62,44 +62,37 @@ MySample.graphics = (function(pixelsX, pixelsY, showPixels) {
 
     //Quadrant 1
     function drawLine(x1, y1, x2, y2, color) {
-        let x_k = x1;
-        let y_k = y1;
-        let m = (y2 - y1)/(x2 - x1);
-        let b = y1 - (m * x1);
         let deltaX = x2 - x1;
         let deltaY = y2 - y1;
-        let c = (2*deltaY) + (deltaX*(2 * b - 1));
-        let pk = (2 * deltaY * x_k) - (2 * deltaX * y_k) + c;
-        for(let x = x_k; x < x2; x++){
-            drawPixel(x,y_k,color)
-            if(pk >= 0) {
-                pk = pk + (2 * deltaY) - (2 * deltaX);
-                y_k--;
-            }else{
-                pk = pk + (2 * deltaY);
+        let m = deltaY/deltaX;
+        let b = y1 - m * x1;
+        let c = 2 * deltaY + (deltaX * (2 * b - 1));
+        let pk = (2 * deltaY * x1) - (2 * deltaX * y1) + c;
+        // Octant 1
+        if (x1 < x2){
+            for(let x = x1; x <= x2; x++){
+                drawPixel(x,y1,color);
+                if(pk >= 0) {
+                    pk = pk + ((2 * deltaY) - (2 * deltaX));
+                    y1++;
+                }else{
+                    pk = pk + (2 * deltaY);
+                }
+            }
+        }
+        // Octant 5
+        if (x2 < x1){
+            for(let x = x1; x >= x2; x--){
+                drawPixel(x,y1,color);
+                if(pk >= 0) {
+                    pk = pk + ((2 * deltaY) - (2 * deltaX));
+                    y1++;
+                }else{
+                    pk = pk + (2 * deltaY);
+                }
             }
         }
     }
-    // function drawLine(x1,y1,x2,y2,color){
-    //     let x_k = x1;
-    //     let y_k = y1;
-    //     let m = (y2 - y1)/(x2 - x1);
-    //     let b = y1 - (m * x1);
-    //     let deltaX = x2 - x1;
-    //     let deltaY = y2 - y1;
-    //     let c = (2*deltaY) + (deltaX*(2 * b - 1));
-    //     let pk = (2 * deltaY * x_k) - (2 * deltaX * y_k) + c;
-    //     for(let x = x_k; x < x2;x++){
-    //         drawPixel(x,y_k,color)
-    //         if(pk >= 0) {
-    //             pk = pk + (2 * deltaY) - (2 * deltaX);
-    //             y_k++;
-    //         }else{
-    //             pk = pk + (2 * deltaY);
-    //         }
-    //     }
-    // }
-
     let api = {
         clear: clear,
         drawPixel: drawPixel,
