@@ -68,7 +68,8 @@ MySample.graphics = (function(pixelsX, pixelsY, showPixels) {
         let c = 2 * deltaY + (deltaX * (2 * b - 1));
         let pk = (2 * deltaY * x1) - (2 * deltaX * y1) + c;
         // Octant 0
-        if(x1 <= x2 && y2 < y1 && deltaX < deltaY) {
+        if(x1 < x2 && y2 < y1 && deltaX < deltaY) {
+            [x1,y1]=[x2,y2]
             for(let y = y1; y >= y2; y--){
                 drawPixel(x1,y,color);
                 if(pk >= 0) {

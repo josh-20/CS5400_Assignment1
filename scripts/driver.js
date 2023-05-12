@@ -27,13 +27,12 @@ MySample.main = (function(graphics) {
     //------------------------------------------------------------------
     function render() {
         graphics.clear(); 
-        graphics.drawLine(ptCenter.x,ptCenter.y,Math.trunc(ptEnd.x),Math.trunc(ptEnd.y),"orange");
-        // graphics.drawLine(75,75,30,90,"red");
-        // graphics.drawLine(75,75,80,79,"red");
-        // graphics.drawLine(75,75,80,80,"blue");
-        // graphics.drawLine(75,75,65,80,"yellow");
-        // graphics.drawLine(75,75,30,80,"blue");
-        // graphics.drawLine(75,75,30,90,"red");
+        // graphics.drawLine(ptCenter.x,ptCenter.y,Math.trunc(ptEnd.x),Math.trunc(ptEnd.y),"orange");
+        graphics.drawLine(75,75,80,79,"orange");// octant 2
+        graphics.drawLine(75,75,85,70,"blue"); //octant 1
+        graphics.drawLine(75,75,65,70, "pink") // Octant 5
+        graphics.drawLine(75,75,65,80,"yellow" )// Octant 6
+        graphics.drawLine(75,75, 80, 65)// Octant 0
     }
 
     //------------------------------------------------------------------
