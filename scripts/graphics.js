@@ -59,39 +59,9 @@ MySample.graphics = (function(pixelsX, pixelsY, showPixels) {
     // Bresenham line drawing algorithm.
     //
     //------------------------------------------------------------------
-    function drawLine(x1, y1, x2, y2, color) {
 
-        // horizontal line check
-        if(x1 == x2){
-            if(y1 < y2){
-                while(y1 != y2){
-                    drawPixel(x1,y1,color);
-                    y1++;
-                }
-            }else{
-                while(y1 != y2){
-                    drawPixel(x1,y1,color);
-                    y1--;
-                }
-            }
-        }
-        
-        if(Math.abs(x1 - x2) < Math.abs(y1-y2)){
-           let swap1 = y1;
-           let swap2 = y2;
-           y1 = x1;
-           y2 = x2;
-           x1 = swap1;
-           x2 = swap2;
-        }
-        if (x1 > x2) {
-           let swap1 = x1;
-           let swap2 = y1;
-           x1 = x2;
-           y1 = y2;
-           x2 = swap1;
-           y2 = swap2;
-        }
+    //Quadrant 1
+    function drawLine(x1, y1, x2, y2, color) {
         let x_k = x1;
         let y_k = y1;
         let m = (y2 - y1)/(x2 - x1);
@@ -100,17 +70,35 @@ MySample.graphics = (function(pixelsX, pixelsY, showPixels) {
         let deltaY = y2 - y1;
         let c = (2*deltaY) + (deltaX*(2 * b - 1));
         let pk = (2 * deltaY * x_k) - (2 * deltaX * y_k) + c;
-        while(x_k != x2){
-            drawPixel(x_k,y_k,color)
+        for(let x = x_k; x < x2; x++){
+            drawPixel(x,y_k,color)
             if(pk >= 0) {
                 pk = pk + (2 * deltaY) - (2 * deltaX);
-                y_k++;
+                y_k--;
             }else{
                 pk = pk + (2 * deltaY);
             }
-            x_k++;
         }
     }
+    // function drawLine(x1,y1,x2,y2,color){
+    //     let x_k = x1;
+    //     let y_k = y1;
+    //     let m = (y2 - y1)/(x2 - x1);
+    //     let b = y1 - (m * x1);
+    //     let deltaX = x2 - x1;
+    //     let deltaY = y2 - y1;
+    //     let c = (2*deltaY) + (deltaX*(2 * b - 1));
+    //     let pk = (2 * deltaY * x_k) - (2 * deltaX * y_k) + c;
+    //     for(let x = x_k; x < x2;x++){
+    //         drawPixel(x,y_k,color)
+    //         if(pk >= 0) {
+    //             pk = pk + (2 * deltaY) - (2 * deltaX);
+    //             y_k++;
+    //         }else{
+    //             pk = pk + (2 * deltaY);
+    //         }
+    //     }
+    // }
 
     let api = {
         clear: clear,
