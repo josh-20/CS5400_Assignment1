@@ -80,6 +80,7 @@ MySample.graphics = (function(pixelsX, pixelsY, showPixels) {
                 }
             }
         }
+        // Octant 7
         else if(x1 > x2 && y2 < y1 && deltaX <= deltaY) {
             for(let y = y1; y >= y2; y--){
                 drawPixel(x1,y,color);

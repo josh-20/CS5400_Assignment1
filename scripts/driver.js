@@ -32,7 +32,7 @@ MySample.main = (function(graphics) {
         graphics.drawLine(75,75,85,70,"blue"); //octant 1
         graphics.drawLine(75,75,65,70, "pink") // Octant 5
         graphics.drawLine(75,75,65,80,"yellow" )// Octant 6
-        graphics.drawLine(75,75, 80, 65,"white") // Octant 0
+        graphics.drawLine(75,75,80,65,"white") // Octant 0
     }
 
     //------------------------------------------------------------------
