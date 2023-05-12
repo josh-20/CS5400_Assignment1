@@ -67,9 +67,14 @@ MySample.graphics = (function(pixelsX, pixelsY, showPixels) {
         let b = y1 - m * x1;
         let c = 2 * deltaY + (deltaX * (2 * b - 1));
         let pk = (2 * deltaY * x1) - (2 * deltaX * y1) + c;
+        
         // Octant 0
         if(x1 < x2 && y2 < y1 && deltaX < deltaY) {
-            [x1,y1]=[x2,y2]
+            [deltaX,deltaY] = [deltaY,deltaX];
+            m = deltaY/deltaX;
+            b = y1 - m * x1;
+            c = 2 * deltaY + (deltaX * (2 * b - 1));
+            pk = (2 * deltaY * x1) - (2 * deltaX * y1) + c;
             for(let y = y1; y >= y2; y--){
                 drawPixel(x1,y,color);
                 if(pk >= 0) {
@@ -81,7 +86,12 @@ MySample.graphics = (function(pixelsX, pixelsY, showPixels) {
             }
         }
         // Octant 7
-        else if(x1 > x2 && y2 < y1 && deltaX <= deltaY) {
+        else if(x1 > x2 && y2 < y1 && deltaX < deltaY) {
+            [deltaX,deltaY] = [deltaY,deltaX];
+            m = deltaY/deltaX;
+            b = y1 - m * x1;
+            c = 2 * deltaY + (deltaX * (2 * b - 1));
+            pk = (2 * deltaY * x1) - (2 * deltaX * y1) + c;
             for(let y = y1; y >= y2; y--){
                 drawPixel(x1,y,color);
                 if(pk >= 0) {
@@ -91,6 +101,39 @@ MySample.graphics = (function(pixelsX, pixelsY, showPixels) {
                     pk = pk + (2 * deltaY);
                 }
             }
+        }
+        else if (x1 < x2 && y1 < y2 && deltaX < deltaY){ // Octant 3
+            [deltaX,deltaY] = [deltaY,deltaX];
+            m = deltaY/deltaX;
+            b = y1 - m * x1;
+            c = 2 * deltaY + (deltaX * (2 * b - 1));
+            pk = (2 * deltaY * x1) - (2 * deltaX * y1) + c;
+            for(let y = y1; y <= y2; y++){
+                drawPixel(x1,y,color);
+                if(pk >= 0) {
+                    pk = pk + 2 * deltaY - 2 * deltaX;
+                    x1++;
+                }else{
+                    pk = pk + (2 * deltaY);
+                }
+            }
+        }
+        else if (x1 > x2 && y1 < y2 && deltaX < deltaY){ // Octant 4
+            [deltaX,deltaY] = [deltaY,deltaX];
+            m = deltaY/deltaX;
+            b = y1 - m * x1;
+            c = 2 * deltaY + (deltaX * (2 * b - 1));
+            pk = (2 * deltaY * x1) - (2 * deltaX * y1) + c;
+            for(let y = y1; y <= y2; y++){
+                drawPixel(x1,y,color);
+                if(pk >= 0) {
+                    pk = pk + 2 * deltaY - 2 * deltaX;
+                    x1--;
+                }else{
+                    pk = pk + (2 * deltaY);
+                }
+            }
+
         }
         // Octant 1
         else if(x1 < x2 && (y2 - y1) > 0){
